@@ -65,21 +65,24 @@ button:hover {
   box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.5);
 }
 
+.visible {
+  display: block;
+}
+
+.not-visible {
+  display: none;
+}
+
 .forecast-summary {
   list-style-type: none;
   padding: 12px 5px 0 5px;
-  overflow: hidden;
-}
-
-.forecast-summary li {
-  display: inline-block;
 }
 
 .currently-col--left,
 .currently-col--right {
   vertical-align: middle;
   justify-content: left;
-  margin: 15px 0px;
+  margin: 25px 0px;
 }
 
 .currently-col--left ul,

@@ -1,5 +1,6 @@
 const weatherForm = document.querySelector("form");
 const search = document.querySelector("input");
+const forecastContainer = document.getElementById("forecast-container");
 const loadingMessage = document.getElementById("loading");
 const summaryTitle = document.getElementById("summary-title");
 const summaryLocation = document.getElementById("summary-location");
@@ -13,10 +14,23 @@ const dayIcon = document.getElementById("day-icon");
 const dayHigh = document.getElementById("day-high");
 const dayLow = document.getElementById("day-low");
 
+const hideForecast = () => {
+  forecastContainer.classList.add("not-visible");
+};
+
+hideForecast();
+
+function showForecast() {
+  setTimeout(() => {
+    forecastContainer.classList.remove("not-visible");
+  }, 1000);
+}
+
 weatherForm.addEventListener("submit", e => {
   loadingMessage.textContent = "Loading Weather Report...";
   e.preventDefault();
   const location = search.value;
+  showForecast();
 
   summaryTitle.textContent = "";
   summaryLocation.textContent = "";
@@ -60,11 +74,15 @@ weatherForm.addEventListener("submit", e => {
         currentlyWind.textContent = `Wind Speed: ${
           data.forecast.currently.windSpeed
         } mph`;
-        currentlyUV.textContent = `UV Index ${data.forecast.currently.uvIndex}`;
-        day.textContent = "";
+        currentlyUV.textContent = `UV Index: ${
+          data.forecast.currently.uvIndex
+        }`;
+        day.textContent = `${data.forecast.daily.data[0].time}`;
         dayIcon.textContent = "";
-        dayHigh.textContent = "";
-        dayLow.textContent = "";
+        dayHigh.textContent = `${
+          data.forecast.daily.data[0].temperatureHigh
+        } °F`;
+        dayLow.textContent = `${data.forecast.daily.data[0].temperatureLow} °F`;
       }
     });
   });
