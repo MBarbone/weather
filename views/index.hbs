@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="icon" href="/img/weather.png">
 
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -21,7 +22,62 @@
   <div class="main-content">
     {{>header}}
 
+    <form>
+      <input placeholder="Location">
+      <button>Search</button>
+    </form>
+
+
+    <p id="loading"></p>
+
+    <h4 id="messageOne"></h4>
+
+    <div class="forecast-container container">
+      <ul class="forecast-summary">
+        <li>
+          <h4 id="summary-title">Summary</h4>
+        </li>
+        <li>
+          <h5 id="summary-location">Location</h5>
+        </li>
+      </ul>
+
+      <div class="currently-row row">
+        <div class="currently-col--left col-6 align-self-center">
+          <ul>
+            <li><i class="fab fa-linkedin fa-2x"></i></li>
+            <li>
+              <h4 id="currently-temp">40 Deg F</h4>
+            </li>
+          </ul>
+        </div>
+
+        <div class="currently-col--right col-6 align-self-center">
+          <ul>
+            <li id="currently-precip-percent">Info goes here</li>
+            <li id="currently-humidity">Info goes here</li>
+            <li id="currently-wind">Info goes here</li>
+            <li id="currently-uvIndex">Info goes here</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="weekly-row justify-content-center row">
+        <div class="weekly-col col-12">
+          <ul>
+            <li id="day">Day</li>
+            <li id="day-icon"><i class="fab fa-linkedin"></i></li>
+            <li id="day-high">High</li>
+            <li id="day-low">Low</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <p id="messageTwo"></p>
   </div>
+
 
   {{>footer}}
 
