@@ -47,7 +47,7 @@ weatherForm.addEventListener("submit", e => {
   // dayHigh.textContent = "";
   // dayLow.textContent = "";
 
-  fetch(`http://localhost:3000/weather?address=${location}`).then(response => {
+  fetch(`/weather?address=${location}`).then(response => {
     response.json().then(data => {
       console.log(data);
       if (data.error) {
