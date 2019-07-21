@@ -112,18 +112,6 @@ weatherForm.addEventListener("submit", e => {
         weeklyForecast.textContent = data.forecast.daily.summary;
 
         if (data.forecast.alerts) {
-          const dateStart = new Date(
-            data.forecast.alerts[0].time * 1000
-          ).toString();
-
-          const dateEnd = new Date(
-            data.forecast.alerts[0].expires * 1000
-          ).toString();
-
-          const formattedStart = dateStart.slice(3, 75);
-          const formattedEnd = dateEnd.slice(3, 75);
-
-          console.log(formattedEnd);
           alertTitle.textContent = `${data.forecast.alerts[0].title}!`;
           alertDescription.textContent = data.forecast.alerts[0].description;
         } else {
