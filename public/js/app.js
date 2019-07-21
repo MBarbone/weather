@@ -65,11 +65,11 @@ weatherForm.addEventListener("submit", e => {
         summaryTitle.textContent = data.forecast.currently.summary;
         summaryLocation.textContent = data.location;
         currentlyTemp.textContent = `${data.forecast.currently.temperature} °F`;
-        currentlyPrecip.textContent = `Precipitation Probability: ${parseFloat(
-          data.forecast.currently.precipProbability * 100
+        currentlyPrecip.textContent = `Precipitation Probability: ${Math.round(
+          parseFloat(data.forecast.currently.precipProbability * 100)
         )}%`;
-        currentlyHumidity.textContent = `Humidity: ${parseFloat(
-          data.forecast.currently.humidity * 100
+        currentlyHumidity.textContent = `Humidity: ${Math.round(
+          parseFloat(data.forecast.currently.humidity * 100)
         )}%`;
         currentlyWind.textContent = `Wind Speed: ${
           data.forecast.currently.windSpeed
@@ -77,7 +77,14 @@ weatherForm.addEventListener("submit", e => {
         currentlyUV.textContent = `UV Index: ${
           data.forecast.currently.uvIndex
         }`;
-        day.textContent = `${data.forecast.daily.data[0].time}`;
+
+        const date = new Date(
+          data.forecast.daily.data[0].time * 1000
+        ).toString();
+
+        const formattedDate = date.slice(3, 10);
+
+        day.textContent = `${formattedDate}`;
         dayIcon.textContent = "";
         dayHigh.textContent = `${
           data.forecast.daily.data[0].temperatureHigh
