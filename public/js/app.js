@@ -5,6 +5,7 @@ const loadingMessage = document.getElementById("loading");
 const summaryTitle = document.getElementById("summary-title");
 const summaryLocation = document.getElementById("summary-location");
 const currentlyTemp = document.getElementById("currently-temp");
+const currentlyIcon = document.getElementById("currently-icon");
 const currentlyPrecip = document.getElementById("currently-precip-percent");
 const currentlyHumidity = document.getElementById("currently-humidity");
 const currentlyWind = document.getElementById("currently-wind");
@@ -20,17 +21,10 @@ const hideForecast = () => {
 
 hideForecast();
 
-function showForecast() {
-  setTimeout(() => {
-    forecastContainer.classList.remove("not-visible");
-  }, 1000);
-}
-
 weatherForm.addEventListener("submit", e => {
   loadingMessage.textContent = "Loading Weather Report...";
   e.preventDefault();
   const location = search.value;
-  showForecast();
 
   summaryTitle.textContent = "";
   summaryLocation.textContent = "";
@@ -48,22 +42,29 @@ weatherForm.addEventListener("submit", e => {
     response.json().then(data => {
       console.log(data);
       if (data.error) {
+        forecastContainer.classList.add("not-visible");
         loadingMessage.textContent = data.error;
         summaryTitle.textContent = "";
         summaryLocation.textContent = "";
         currentlyTemp.textContent = "";
+        currentlyIcon.src = "";
         currentlyPrecip.textContent = "";
         currentlyHumidity.textContent = "";
         currentlyWind.textContent = "";
         currentlyUV.textContent = "";
         day.textContent = "";
-        dayIcon.textContent = "";
+        dayIcon.src = "";
         dayHigh.textContent = "";
         dayLow.textContent = "";
       } else {
+        forecastContainer.classList.remove("not-visible");
         loadingMessage.textContent = "";
         summaryTitle.textContent = data.forecast.currently.summary;
         summaryLocation.textContent = data.location;
+
+        if (data.forecast.daily.data[0].icon === "clear-day") {
+          currentlyIcon.src = "../img/SVG/Sun.svg";
+        }
         currentlyTemp.textContent = `${data.forecast.currently.temperature} °F`;
         currentlyPrecip.textContent = `Precipitation Probability: ${Math.round(
           parseFloat(data.forecast.currently.precipProbability * 100)
@@ -85,7 +86,7 @@ weatherForm.addEventListener("submit", e => {
         const formattedDate = date.slice(3, 10);
 
         day.textContent = `${formattedDate}`;
-        dayIcon.textContent = "";
+        dayIcon.src = "../img/SVG/Cloud-Drizzle-Alt.svg";
         dayHigh.textContent = `${
           data.forecast.daily.data[0].temperatureHigh
         } °F`;
