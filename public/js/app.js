@@ -10,10 +10,14 @@ const currentlyPrecip = document.getElementById("currently-precip-percent");
 const currentlyHumidity = document.getElementById("currently-humidity");
 const currentlyWind = document.getElementById("currently-wind");
 const currentlyUV = document.getElementById("currently-uvIndex");
-const day = document.getElementById("day");
-const dayIcon = document.getElementById("day-icon");
-const dayHigh = document.getElementById("day-high");
-const dayLow = document.getElementById("day-low");
+const weeklyForecastTitle = document.getElementById("weekly-forecast-title");
+const weeklyForecast = document.getElementById("weekly-forecast");
+const alertTitle = document.getElementById("alert-title");
+const alertDescription = document.getElementById("alert-description");
+// const day = document.getElementById("day");
+// const dayIcon = document.getElementById("day-icon");
+// const dayHigh = document.getElementById("day-high");
+// const dayLow = document.getElementById("day-low");
 
 const hideForecast = () => {
   forecastContainer.classList.add("not-visible");
@@ -29,14 +33,19 @@ weatherForm.addEventListener("submit", e => {
   summaryTitle.textContent = "";
   summaryLocation.textContent = "";
   currentlyTemp.textContent = "";
+  currentlyIcon.src = "";
   currentlyPrecip.textContent = "";
   currentlyHumidity.textContent = "";
   currentlyWind.textContent = "";
   currentlyUV.textContent = "";
-  day.textContent = "";
-  dayIcon.textContent = "";
-  dayHigh.textContent = "";
-  dayLow.textContent = "";
+  weeklyForecastTitle.textContent = "";
+  weeklyForecast.textContent = "";
+  alertTitle.textContent = "";
+  alertDescription.textContent = "";
+  // day.textContent = "";
+  // dayIcon.textContent = "";
+  // dayHigh.textContent = "";
+  // dayLow.textContent = "";
 
   fetch(`http://localhost:3000/weather?address=${location}`).then(response => {
     response.json().then(data => {
@@ -52,19 +61,40 @@ weatherForm.addEventListener("submit", e => {
         currentlyHumidity.textContent = "";
         currentlyWind.textContent = "";
         currentlyUV.textContent = "";
-        day.textContent = "";
-        dayIcon.src = "";
-        dayHigh.textContent = "";
-        dayLow.textContent = "";
+        weeklyForecastTitle.textContent = "";
+        weeklyForecast.textContent = "";
+        alertTitle.textContent = "";
+        alertDescription.textContent = "";
+        // day.textContent = "";
+        // dayIcon.src = "";
+        // dayHigh.textContent = "";
+        // dayLow.textContent = "";
       } else {
+        forecastContainer.classList.remove("not-visible");
         forecastContainer.classList.remove("not-visible");
         loadingMessage.textContent = "";
         summaryTitle.textContent = data.forecast.currently.summary;
         summaryLocation.textContent = data.location;
 
-        if (data.forecast.daily.data[0].icon === "clear-day") {
+        // setting icons
+        if (data.forecast.currently.icon.includes("clear")) {
           currentlyIcon.src = "../img/SVG/Sun.svg";
+        } else if (data.forecast.currently.icon.includes("partly-cloudy")) {
+          currentlyIcon.src = "../img/SVG/Cloud-Sun.svg";
+        } else if (data.forecast.currently.icon.includes("cloudy")) {
+          currentlyIcon.src = "../img/SVG/Cloud.svg";
+        } else if (data.forecast.currently.icon.includes("rain")) {
+          currentlyIcon.src = "../img/SVG/Umbrella.svg";
+        } else if (data.forecast.currently.icon.includes("hail")) {
+          currentlyIcon.src = "../img/SVG/Cloud-Hail.svg";
+        } else if (data.forecast.currently.icon.includes("snow")) {
+          currentlyIcon.src = "../img/SVG/Snowflake.svg";
+        } else if (data.forecast.currently.icon.includes("wind")) {
+          currentlyIcon.src = "../img/SVG/Cloud-Wind.svg";
+        } else if (data.forecast.currently.icon.includes("fog")) {
+          currentlyIcon.src = "../img/SVG/Cloud-Fog.svg";
         }
+
         currentlyTemp.textContent = `${data.forecast.currently.temperature} °F`;
         currentlyPrecip.textContent = `Precipitation Probability: ${Math.round(
           parseFloat(data.forecast.currently.precipProbability * 100)
@@ -78,19 +108,35 @@ weatherForm.addEventListener("submit", e => {
         currentlyUV.textContent = `UV Index: ${
           data.forecast.currently.uvIndex
         }`;
+        weeklyForecastTitle.textContent = "Forecast";
+        weeklyForecast.textContent = data.forecast.daily.summary;
 
-        const date = new Date(
-          data.forecast.daily.data[0].time * 1000
-        ).toString();
+        if (data.forecast.alerts) {
+          const dateStart = new Date(
+            data.forecast.alerts[0].time * 1000
+          ).toString();
 
-        const formattedDate = date.slice(3, 10);
+          const dateEnd = new Date(
+            data.forecast.alerts[0].expires * 1000
+          ).toString();
 
-        day.textContent = `${formattedDate}`;
-        dayIcon.src = "../img/SVG/Cloud-Drizzle-Alt.svg";
-        dayHigh.textContent = `${
-          data.forecast.daily.data[0].temperatureHigh
-        } °F`;
-        dayLow.textContent = `${data.forecast.daily.data[0].temperatureLow} °F`;
+          const formattedStart = dateStart.slice(3, 75);
+          const formattedEnd = dateEnd.slice(3, 75);
+
+          console.log(formattedEnd);
+          alertTitle.textContent = `${data.forecast.alerts[0].title}!`;
+          alertDescription.textContent = data.forecast.alerts[0].description;
+        } else {
+          alertDescription.textContent =
+            "There are no weather alerts for this location.";
+        }
+
+        // day.textContent = `${formattedDate}`;
+        // dayIcon.src = "../img/SVG/Cloud-Drizzle-Alt.svg";
+        // dayHigh.textContent = `${
+        //   data.forecast.daily.data[0].temperatureHigh
+        // } °F`;
+        // dayLow.textContent = `${data.forecast.daily.data[0].temperatureLow} °F`;
       }
     });
   });

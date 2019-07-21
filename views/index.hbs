@@ -36,10 +36,10 @@
     <div id="forecast-container" class="forecast-container container">
       <ul class="forecast-summary">
         <li>
-          <h3 id="summary-location">Location</h3>
+          <h3 id="summary-location"></h3>
         </li>
         <li>
-          <h5 id="summary-title">Summary</h5>
+          <h5 id="summary-title"></h5>
         </li>
       </ul>
 
@@ -48,17 +48,17 @@
           <ul>
             <li><img id="currently-icon" src=""></li>
             <li>
-              <h4 id="currently-temp">40 Deg F</h4>
+              <h4 id="currently-temp"></h4>
             </li>
           </ul>
         </div>
 
         <div class="currently-col--right col-6 align-self-center">
           <ul>
-            <li id="currently-precip-percent">Info goes here</li>
-            <li id="currently-humidity">Info goes here</li>
-            <li id="currently-wind">Info goes here</li>
-            <li id="currently-uvIndex">Info goes here</li>
+            <li id="currently-precip-percent"></li>
+            <li id="currently-humidity"></li>
+            <li id="currently-wind"></li>
+            <li id="currently-uvIndex"></li>
           </ul>
         </div>
       </div>
@@ -66,13 +66,18 @@
       <div class="weekly-row justify-content-center row">
         <div class="weekly-col col-12">
 
-          <ul>
+          {{!-- <ul>
             <li id="day">Day</li>
             <li><img id="day-icon" src=""></li>
             <li id="day-high">High</li>
             <li id="day-low">Low</li>
-          </ul>
-          <canvas id="icon1" width="128" height="128"></canvas>
+          </ul> --}}
+          <h4 id="weekly-forecast-title"></h4>
+          <p id="weekly-forecast"></p>
+
+
+          <h4 id="alert-title"></h4>
+          <p id="alert-description"></p>
 
 
 
