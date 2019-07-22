@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon" href="/img/weather.png">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -19,7 +20,18 @@
 <body>
   <div class="main-content">
     {{>header}}
-    <img class="portrait" src="/img/415150572.JPG">
+
+    <br>
+
+    <p>Weatherly is a weather app built with simplicity in mind. It is a quick way to get a detailed forecast of
+      current conditions as well as the a forecast summary and severe weather alerts.</p>
+
+    <br>
+
+    <p>Weatherly was built using the DarkySky API and Geocode API. User inputs are broken down into numerical
+      longitutde and latitude values in the Geocode API which are then fed to the DarkSky query to return usable JSON
+      data. That data is displayed to the user in the created weather card. </p>
+
   </div>
 
   {{>footer}}

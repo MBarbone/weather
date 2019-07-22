@@ -18,24 +18,24 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.get("/", (req, res) => {
   res.render("index", {
-    title: "Weather App",
-    name: "Mike"
+    title: "Weatherly",
+    name: "Mike Barbone"
   });
 });
 
 app.get("/about", (req, res) => {
   res.render("about", {
-    title: "About Me",
-    name: "Mike"
-  });
-});
-
-app.get("/help", (req, res) => {
-  res.render("help", {
-    title: "Help Page",
+    title: "About Weatherly",
     name: "Mike Barbone"
   });
 });
+
+// app.get("/help", (req, res) => {
+//   res.render("help", {
+//     title: "Help Page",
+//     name: "Mike Barbone"
+//   });
+// });
 
 app.get("/weather", (req, res) => {
   if (!req.query.address) {
@@ -64,18 +64,18 @@ app.get("/weather", (req, res) => {
   );
 });
 
-app.get("/help/*", (req, res) => {
-  res.render("help404", {
-    title: "404",
-    name: "Mike",
-    errorMessage: "Help article not found."
-  });
-});
+// app.get("/help/*", (req, res) => {
+//   res.render("help404", {
+//     title: "404",
+//     name: "Mike Barbone",
+//     errorMessage: "Help article not found."
+//   });
+// });
 
 app.get("*", (req, res) => {
   res.render("general404", {
     title: "404",
-    name: "Mike",
+    name: "Mike Barbone",
     errorMessage: "Page not found."
   });
 });
