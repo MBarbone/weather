@@ -4,6 +4,10 @@ Weatherly is a weather app built with simplicity in mind. It is a quick way to g
 
 Weatherly was built using the DarkySky API and Geocode API. User inputs are broken down into numerical longitutde and latitude values in the Geocode API which are then fed to the DarkSky query to return usable JSON data. That data is displayed to the user in the created weather card.
 
+The app is built with Node.js, using axios to make the API calls, and handlebars on the front-end.
+
+Demo here: https://barbone-weather-application.herokuapp.com/
+
 ### To Use
 Simply enter the location you would like to search for and click search!
 
